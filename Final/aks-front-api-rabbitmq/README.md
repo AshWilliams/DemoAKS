@@ -107,6 +107,9 @@ We should see something like this:
 ## Using NGROK, to expose our front-end service
 
 First, we need to port-forward our service
+```
+kubectl port-forward service/rabbit-mq-front 8085:80 -n nsdemo
+```
 ![Capture5](images/Capture5.JPG)
 
 Once this is done, we can check our application running on `127.0.0.1:8085` or `localhost:8085`
