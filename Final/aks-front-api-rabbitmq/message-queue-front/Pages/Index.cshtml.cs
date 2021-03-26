@@ -21,20 +21,21 @@ namespace todo_list_front.Pages
         private readonly IConfiguration _configuration;
         private static readonly HttpClient client = new HttpClient();
         private CancellationToken cancellationToken;
-
+        private endPoint = "";
         public IndexModel(IConfiguration configuration)
         {
             _configuration = configuration;
+            endPoint = "http://"+_configuration["RabbitApi"]+ "/messages";
         }
 
         public void OnGet()
         {
-            ViewData["RabbitApi"] = "http://"+_configuration["RabbitApi"]+ "/messages";
+            ViewData["RabbitApi"] = endPoint;
         }
 
         public async Task<JsonResult> OnGetMessagesAsync()
         {
-            var Url = "http://" + _configuration["RabbitApi"] + "/messages";
+            var Url = endPoint;
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
@@ -56,7 +57,7 @@ namespace todo_list_front.Pages
 
         public async Task<IActionResult> OnPostSendMessageAsync([FromBody] Message message)
         {
-            var Url = "http://" + _configuration["RabbitApi"] + "/messages";
+            var Url = endPoint;
           
             using (var request = new HttpRequestMessage(HttpMethod.Post, Url))
             using (var httpContent = CreateHttpContent(message))

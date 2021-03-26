@@ -85,8 +85,8 @@ Then we need to deploy each of our files into the newly created namespace `nsdem
 <details>
   <summary>If you forget about, how to do it, you can check this TIP!</summary>
   
-  ```
-kubectl apply -f manifest.yaml -n nsdemo
+```
+kubectl apply -f aks-front-webapi-rabbit-all-in-one.yaml -n nsdemo
 ```
 </details>
 
